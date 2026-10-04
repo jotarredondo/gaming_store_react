@@ -1,5 +1,4 @@
-import { useState } from "react"
-import productos from "./data/productos"
+import { useState, useEffect } from "react"
 import ProductList from "./components/ProductList"
 import Navbar from "./components/Navbar"
 import Cart from "./components/Cart"
@@ -9,12 +8,38 @@ import "./App.css"
 
 function App() {
 
-// Estado principal del carrito
+    // estado productos
+    const [productos, setProductos] = useState([])
+    const [cargando, setCargando] = useState(true)
+    const [error, setError] = useState(false)
+    // estado carrito
     const [carrito, setCarrito] = useState([])
+
+    // Carga dinámicamente los productos desde el archivo JSON al iniciar la aplicación
+    useEffect(() => {
+
+        fetch(`${import.meta.env.BASE_URL}data/productos.json`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al cargar los productos")
+                }
+                return response.json()
+            })
+            .then(data => {
+                setProductos(data)
+                setCargando(false)
+            })
+            .catch(error => {
+                console.error(error)
+                setError(true)
+                setCargando(false)
+            })
+
+    }, [])
 
 // Agrega un producto al carrito
     function agregarAlCarrito(producto) {
-        setCarrito([...carrito, producto])
+        setCarrito(carritoActual => [...carritoActual, producto])
     }
 
 // Elimina una unidad del carrito según su posición
@@ -35,14 +60,16 @@ function App() {
 
             <Carousel />
 
-            <main>
+            <main>{cargando ? (
+                    <p className="mensaje">Cargando productos...</p>) : error ? (
+                    <p className="mensaje error">No fue posible cargar los productos.</p>) : (
                 <ProductList
                     productos={productos}
-                    agregarAlCarrito={agregarAlCarrito}/>
-
-                <Cart
                     carrito={carrito}
-                    eliminarDelCarrito={eliminarDelCarrito}/>
+                    agregarAlCarrito={agregarAlCarrito}/>
+                )}
+
+                <Cart carrito={carrito} eliminarDelCarrito={eliminarDelCarrito}/>
             </main>
 
             <Footer />

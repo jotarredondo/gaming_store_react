@@ -214,6 +214,11 @@ main > section:last-child button:hover {
   margin-top: 1.5rem;
 }
 
+.product-card button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
 .footer {
   margin-top: 3rem;
   background-color: #146c43;

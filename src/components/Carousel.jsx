@@ -1,25 +1,22 @@
 import { useState } from "react"
 
-import ps5 from "../assets/ps5.jpg"
-import xbox from "../assets/xbox.jpg"
-import switchImg from "../assets/switch.jpg"
 
 function Carousel() {
 
     const imagenes = [
         {
             id: 1,
-            src: ps5,
+            src: `${import.meta.env.BASE_URL}img/ps5.jpg`,
             alt: "PlayStation 5"
         },
         {
             id: 2,
-            src: xbox,
+            src: `${import.meta.env.BASE_URL}img/xbox.jpg`,
             alt: "Xbox"
         },
         {
             id: 3,
-            src: switchImg,
+            src: `${import.meta.env.BASE_URL}img/switch.jpg`,
             alt: "Nintendo Switch"
         }
     ]

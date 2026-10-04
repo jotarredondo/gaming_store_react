@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard"
 
-function ProductList({ productos, agregarAlCarrito }) {
+function ProductList({ productos, carrito, agregarAlCarrito }) {
 
     return (
         <section id="productos">
@@ -11,6 +11,7 @@ function ProductList({ productos, agregarAlCarrito }) {
                     <ProductCard
                         key={producto.id}
                         producto={producto}
+                        carrito={carrito}
                         agregarAlCarrito={agregarAlCarrito}/>
                 ))}
             </div>
